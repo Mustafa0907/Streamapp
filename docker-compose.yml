@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Define the User Service container
+  user-service:
+    build: ./user-service  # Build the image from the user-service folder
+    container_name: user-service-container # Optional: give the container a friendly name
+    ports:
+      - "8081:8081" # Map port 8081 on your host to port 8081 in the container
+    environment:
+      # CRUCIAL: Override settings to connect to your host's SQL Server
+      # 'host.docker.internal' is a special DNS name that lets a container connect to the host machine.
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://host.docker.internal:1433;databaseName=streamyard_db;encrypt=true;trustServerCertificate=true;
+      - SPRING_DATASOURCE_USERNAME=streamyard_user
+      - SPRING_DATASOURCE_PASSWORD=1234 # <-- IMPORTANT: Replace with your actual password
+      # Override JWT secret and expiration from environment variables
+      - APP_JWT_SECRET=a2a8e4a7d4e5f8a2a8e4a7d4e5f8a2a8e4a7d4e5f8a2a8e4a7d4e5f8a2a8e4a7d4e5f8
+      - APP_JWT_EXPIRATION_MS=86400000
+
+  # Define the API Gateway container
+  # api-gateway:
+  #   build: ./api-gateway # Build the image from the api-gateway folder
+  #   container_name: api-gateway-container # Optional: give the container a friendly name
+  #   ports:
+  #     - "8080:8080" # Map port 8080 on your host to port 8080 in the container
+  #   environment:
+  #     # CRUCIAL: Override the route URI to use the service name 'user-service'
+  #     # Docker Compose creates a private network where containers can find each other by name.
+  #     # - SPRING_CLOUD_GATEWAY_ROUTES_0_ID=user-service-route
+  #     - SPRING_CLOUD_GATEWAY_ROUTES_0_URI=http://user-service:8081
+  #     # - SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_ROUTES_0_PREDICATES_0=Path=/api/users/**
+  #   depends_on:
+  #     - user-service # Tells Docker to wait for the user-service to start first
+  # streamservice:
+  #   build: ./stream-service
+  #   container_name: stream-service-container
+  #   ports:
+  #     - "8082:8082" # Exposing this is good for direct testing.
+  #   environment:
+  #     # Database connection for the stream service
+  #     - SPRING_DATASOURCE_URL=jdbc:sqlserver://host.docker.internal:1433;databaseName=streamyard_db;encrypt=true;trustServerCertificate=true;
+  #     - SPRING_DATASOURCE_USERNAME=streamyard_user
+  #     - SPRING_DATASOURCE_PASSWORD=1234 # <-- IMPORTANT: Replace with your actual password
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway-container
+    ports:
+      - "8080:8080"
+    environment:
+      # THE CRUCIAL CHANGE: Activate the 'docker' profile.
+      # This tells Spring to load application-docker.properties.
+      # - SPRING_PROFILES_ACTIVE=docker
+      - APP_JWT_SECRET=a2a8e4a7d4e5f8a2a8e4a7d4e5f8a2a8e4a7d4e5f8a2a8e4a7d4e5f8a2a8e4a7d4e5f8
+
+      # - ROUTE_USER-SERVICE_URI=http://user-service:8081
+    depends_on:
+      - user-service

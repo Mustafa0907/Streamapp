@@ -1,0 +1,34 @@
+# Compiled class files
+target
+build
+out
+
+# Log files
+.log
+
+# Package files
+.jar
+.war
+.ear
+
+# IDE specific files
+.idea
+.iml
+.classpath
+.project
+.settings
+.vscode
+
+# Maven specific files
+.mvn
+
+# Secrets and environment-specific configurations
+# NEVER commit application.properties if it contains secrets.
+# Use environment variables or a secrets manager instead.
+# If you have a local-only properties file, add it here
+# application-local.properties
+# .env
+
+# Operating System files
+.DS_Store
+Thumbs.db
