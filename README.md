@@ -1,9 +1,5 @@
 # 🎙️ StreamZone Pro - A Modern Live Streaming and Podcasting Platform
 
-<p align="center">
-  <img src="https://your-image-host.com/main-screenshot.png" alt="StreamZone Pro Dashboard Screenshot" width="800"/>
-</p>
-
 StreamZone Pro is a full-featured, microservices-based live streaming application built with a modern Java and React technology stack. It is designed to be a robust and scalable platform, allowing multiple users to host collaborative podcasts, share their screens and cameras, and interact with a live audience.
 
 This project serves as a comprehensive demonstration of building a real-world, production-quality SaaS application, incorporating best practices in microservice architecture, real-time communication, and modern frontend development.
