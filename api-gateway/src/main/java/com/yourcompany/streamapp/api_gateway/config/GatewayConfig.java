@@ -33,6 +33,12 @@ public class GatewayConfig {
                         // Use the Docker service name and port directly
 //                        .uri("http://stream-service:8082"))
                         .uri("http://localhost:8082"))
+                .route("recordingservice", r -> r
+                        .path("/api/recordings/**")
+                        .filters(f -> f.filter(authenticationFilter.apply(new AuthenticationFilter.Config())))
+                        // Use the Docker service name and port directly
+//                        .uri("http://stream-service:8082"))
+                        .uri("http://localhost:8084"))
                 .route("stream-service-ws", r -> r
                         .path("/ws/signal/**")
                         // NO FILTER APPLIED HERE
