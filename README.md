@@ -4,8 +4,6 @@ StreamZone Pro is a full-featured, microservices-based live streaming applicatio
 
 This project serves as a comprehensive demonstration of building a real-world, production-quality SaaS application, incorporating best practices in microservice architecture, real-time communication, and modern frontend development.
 
-**Live Demo & Portfolio:** `[Link to your deployed application if available]`
-
 ## ✨ Core Features
 
 *   **Multi-Host Streaming:** Go beyond simple screen sharing. Multiple users can join a stream as hosts, sharing their cameras and audio simultaneously to create a professional podcast or co-streaming environment.
@@ -20,9 +18,6 @@ This project serves as a comprehensive demonstration of building a real-world, p
 ## 🛠️ Tech Stack & Architecture
 
 This project is built on a distributed, microservice architecture designed for scalability and maintainability.
-
-<!-- It's highly recommended to create a simple architecture diagram using a tool like diagrams.net (draw.io) and embed it here -->
-<!-- ![Architecture Diagram](path/to/your/diagram.png) -->
 
 | Component             | Technology                  | Purpose                                                                   |
 | :-------------------- | :-------------------------- | :------------------------------------------------------------------------ |
