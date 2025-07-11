@@ -19,12 +19,23 @@ public class RecordingService {
     private static final Logger logger = LoggerFactory.getLogger(RecordingService.class);
     private final EgressServiceClient egressClient;
     private final Map<Long, String> activeRecordings = new ConcurrentHashMap<>();
-
+    private String awsS3Access = "";
+    private String awsS3Secret = "";
+    private String awsS3Bucket = "";
+    private String awsS3Endpoint = "";
     public RecordingService(
             @Value("${livekit.host}") String livekitHost,
             @Value("${livekit.api.key}") String livekitApiKey,
-            @Value("${livekit.api.secret}") String livekitApiSecret) {
+            @Value("${livekit.api.secret}") String livekitApiSecret,
+            @Value("${aws.s3.access}") String AwsS3Access,
+            @Value("${aws.s3.secret}") String AwsS3Secret,
+            @Value("${aws.s3.bucket}") String AwsS3Bucket,
+            @Value("${aws.s3.endpoint}") String AwsS3Endpoint ){
 
+        this.awsS3Access = awsS3Access;
+        this.awsS3Secret = awsS3Secret;
+        this.awsS3Bucket = awsS3Bucket;
+        this.awsS3Endpoint = awsS3Endpoint;
         // --- ADDING LOGGING FOR DEBUGGING ---
         logger.info("--- RECORDING SERVICE INITIALIZATION ---");
         logger.info("Received livekit.host from config: {}", livekitHost);
@@ -57,10 +68,10 @@ public class RecordingService {
                 .setFilepath(filepath)
                 .setFileType(LivekitEgress.EncodedFileType.MP4)
                 .setS3(LivekitEgress.S3Upload.newBuilder()
-                        .setAccessKey("AKIASTDCWLRK4CPQEK73")
-                        .setSecret("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")
-                        .setBucket("aws-awn")
-                        .setEndpoint("https://s3.us-east-1.amazonaws.com")
+                        .setAccessKey(awsS3Access)
+                        .setSecret(awsS3Access)
+                        .setBucket(awsS3Bucket)
+                        .setEndpoint(awsS3Endpoint)
                         .build())
                 .build();
 
